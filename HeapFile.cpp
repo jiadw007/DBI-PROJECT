@@ -43,7 +43,33 @@ int HeapFile::Close (){
 
 void HeapFile::Load (Schema& myschema, char* loadpath){
 
+    FILE *table = fopen(loadpath, "r");
+    if( 0 == table) exit(-1);
+    Page tempPage;
+    Record tempRecord;
+    int recordCounter = 0;
+    int pageCounter = 0;
 
+    while(1 == tempRecord.SuckNextRecord(&myschema, table)){
+
+        assert(pageCounter >= 0);
+        assert(recordCounter >= 0);
+        recordCounter++;
+        if(recordCounter % 10000 == 0)
+            cerr<<"The toal number of record: " << recordCounter << endl;
+        //insert record into page until page is full and insert page into file
+        if(0 == tempPage.Append(&tempRecord)){ // tempPage is full
+
+            f.AddPage(&tempPage, pageCounter);
+            tempPage.EmptyItOut();
+            tempPage.Append(&tempRecord);
+            pageCounter++;
+
+        }
+
+    }
+    f.AddPage(&tempPage,PageCounter);// insert the last page into the file
+    count<< "Read " << recordCounter <<
 
 
 }
