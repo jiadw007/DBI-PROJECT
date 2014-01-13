@@ -1,5 +1,7 @@
 #ifndef GENERICDBFILE_H
 #define GENERICDBFILE_H
+
+#include <iostream>
 #include "TwoWayList.h"
 #include "Record.h"
 #include "Schema.h"
@@ -7,10 +9,13 @@
 #include "Comparison.h"
 #include "ComparisonEngine.h"
 
-class GenericDBFile{
+using namespace std;
+
+typedef enum {heap, sorted, tree} fType;
+
+class GenericDBFile {
 
 public:
-
 
     GenericDBFile();
     virtual ~GenericDBFile() = 0;
@@ -25,6 +30,5 @@ public:
     virtual int GetNext (Record &fetchme) = 0;
     virtual int GetNext (Record &fetchme, CNF &cnf, Record &literal) = 0;
 
-
-}
+};
 #endif // GENERICDBFILE_H

@@ -1,7 +1,9 @@
-# include "GenericDBFile.h"
+#include "GenericDBFile.h"
 
-GenericDBFile::GenericDBFile(): f(), curPage(), curPageIndex(0){
+GenericDBFile::GenericDBFile() {
+    cerr << "GenericDBFile constructor !" << endl;
+}
 
-    cout<<"GenericDBFile constructor !" << endl;
-
+GenericDBFile::~GenericDBFile() {
+    cerr << "Deconstructing GenericDBFile" << endl;
 }

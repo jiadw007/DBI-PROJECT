@@ -1,4 +1,4 @@
-CC = g++ -O0 -Wno-deprecated -Wall -g
+CC = g++ -O0 -Wno-deprecated -Wall
 
 tag = -n
 
@@ -6,11 +6,11 @@ ifdef linux
 tag = -n
 endif
 
-test.out: Record.o Comparison.o ComparisonEngine.o Schema.o File.o DBFile.o y.tab.o lex.yy.o test.o
-	$(CC) -o test.exe Record.o Comparison.o ComparisonEngine.o Schema.o File.o DBFile.o y.tab.o lex.yy.o test.o -L/lib -lfl 
+test.out: Record.o Comparison.o ComparisonEngine.o Schema.o File.o DBFile.o y.tab.o lex.yy.o test.o GenericDBFile.o HeapFile.o
+	$(CC) -o test.exe Record.o Comparison.o ComparisonEngine.o Schema.o File.o DBFile.o y.tab.o lex.yy.o test.o GenericDBFile.o HeapFile.o -lfl 
 	
 main: Record.o Comparison.o ComparisonEngine.o Schema.o File.o y.tab.o lex.yy.o main.o
-	$(CC) -o main.exe Record.o Comparison.o ComparisonEngine.o Schema.o File.o y.tab.o lex.yy.o main.o -L/lib -lfl
+	$(CC) -o main.exe Record.o Comparison.o ComparisonEngine.o Schema.o File.o y.tab.o lex.yy.o main.o -lfl
 	
 test.o: test.cc
 	$(CC) -g -c test.cc
@@ -26,6 +26,12 @@ ComparisonEngine.o: ComparisonEngine.cc
 	
 DBFile.o: DBFile.cc
 	$(CC) -g -c DBFile.cc
+
+GenericDBFile.o: GenericDBFile.cpp
+	$(CC) -g -c GenericDBFile.cpp
+
+HeapFile.o: HeapFile.cpp
+	$(CC) -g -c HeapFile.cpp
 
 File.o: File.cc
 	$(CC) -g -c File.cc

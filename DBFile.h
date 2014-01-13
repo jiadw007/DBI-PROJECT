@@ -1,14 +1,15 @@
 #ifndef DBFILE_H
 #define DBFILE_H
-#include "GenericDBFile.h"
 #include "TwoWayList.h"
 #include "Record.h"
 #include "Schema.h"
 #include "File.h"
 #include "Comparison.h"
 #include "ComparisonEngine.h"
+#include "GenericDBFile.h"
 #include "HeapFile.h"
-typedef enum {heap, sorted, tree} fType;
+
+//typedef enum {heap, sorted, tree} fType;
 
 // stub DBFile header..replace it with your own DBFile.h 
 

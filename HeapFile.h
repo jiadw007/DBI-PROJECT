@@ -8,7 +8,8 @@
 #include "Comparison.h"
 #include "ComparisonEngine.h"
 #include "GenericDBFile.h"
-class HeapFile: public GenericDBFile{
+
+class HeapFile: public GenericDBFile {
 
 public:
 
@@ -20,9 +21,9 @@ public:
 
     void Load(Schema& myschema, char* loadpath);
     void Add(Record& addme);
+    void MoveFirst();
     int GetNext(Record& fetchme);
     int GetNext(Record& fetchme, CNF& cnf, Record& literal);
-
 
 private:
 
@@ -30,6 +31,5 @@ private:
     Page curPage;
     off_t curPageIndex;
 
-
-}
+};
 #endif // HEAPFILE_H

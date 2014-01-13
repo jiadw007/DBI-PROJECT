@@ -6,21 +6,21 @@
 
 HeapFile::HeapFile(): f(), curPage(), curPageIndex(0){
 
-    cout<<"HeapFile constructor !" << endl;
+    cerr << "HeapFile constructor !" << endl;
 }
 
 HeapFile::~HeapFile(){
 
-    cout<<"HeapFile Destructor !" << endl;
-    delete f;
-    delete curPage;
-    delete curPageIndex;
+    cerr << "HeapFile Destructor !" << endl;
+    //delete f;
+    //delete curPage;
+    //delete curPageIndex;
 
 
 }
 int HeapFile::Create (char* fpath, fType file_type, void* startup){
 
-    assert(heap == f_type);
+    assert(heap == file_type);
     f.Open(0, fpath);
     return 1;
 
@@ -56,7 +56,7 @@ void HeapFile::Load (Schema& myschema, char* loadpath){
         assert(recordCounter >= 0);
         recordCounter++;
         if(recordCounter % 10000 == 0)
-            cerr<<"The toal number of record: " << recordCounter << endl;
+            cout << "The toal number of record: " << recordCounter << endl;
         //insert record into page until page is full and insert page into file
         if(0 == tempPage.Append(&tempRecord)){ // tempPage is full
 
@@ -68,9 +68,8 @@ void HeapFile::Load (Schema& myschema, char* loadpath){
         }
 
     }
-    f.AddPage(&tempPage,PageCounter);// insert the last page into the file
-    count<< "Read " << recordCounter <<
-
+    f.AddPage(&tempPage,pageCounter);// insert the last page into the file
+    cout<< "Read " << recordCounter << endl;
 
 }
 
@@ -90,7 +89,7 @@ void HeapFile::Add (Record& addme){
 
     if(0 != f.GetLength()){
 
-        tempPage = f.getPage(&tempPage, f.GetLength() - 2); //get the last page in the file
+        f.GetPage(&tempPage, f.GetLength() - 2); //get the last page in the file
         if(0 == tempPage.Append(&addme)){// the last page is full, add record to a new page and insert into the end of file
 
             tempPage.EmptyItOut();
@@ -108,7 +107,7 @@ void HeapFile::Add (Record& addme){
     }else{ // This file is a new file with no page.
 
         if(1 == tempPage.Append(&addme)) f.AddPage(&tempPage, 0);
-        else cout<<"A new page is full. Can't insert record!"<< endl;
+        else cout << "A new page is full. Can't insert record!" << endl;
 
     }
 
@@ -120,8 +119,8 @@ int HeapFile::GetNext (Record& fetchme){
     if( 0 == curPage.GetFirst(&fetchme)){// there is no next record for the currentpage
 
         curPageIndex++;
-        cout <<"curPage in file: " << curPageIndex + 1 << endl;
-        cout <<"last page Index in file" << f.GetLength() - 1 << endl;
+        cout << "curPage in file: " << curPageIndex + 1 << endl;
+        cout << "last page Index in file" << f.GetLength() - 1 << endl;
         if(curPageIndex + 1 <= f.GetLength() - 1){ // there exists more page in the file
 
             f.GetPage(&curPage, curPageIndex);
